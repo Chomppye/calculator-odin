@@ -37,7 +37,7 @@ button {
     height: 65px;
 }
 
-#backspace {
+.backspace {
     margin-top: 1px;
     height: 30px;
     margin-left: auto;
