@@ -12,8 +12,8 @@ function clear() {
     numDisplay.innerText = ""
 }
 
-function add() {
-    numsToCalculate.push(...numsInDisplay, "+")
+function determineCalculation(sign) {
+    numsToCalculate.push(...numsInDisplay, sign)
     numsInDisplay = []
     numDisplay.innerText = ""
 }
@@ -73,11 +73,11 @@ function operatorBtnEventListener(event) {
         break;
 
         case "+":
-            add()
+            determineCalculation("+")
         break;
 
         case "-":
-            console.log("subtract by the next number")
+            determineCalculation("-")
         break;
 
         case ".":
