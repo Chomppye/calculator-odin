@@ -31,16 +31,18 @@ function operate(expression = "") {
 
     switch (operator) {
         case "+":
-            let result = num1 + num2
-            numDisplay.innerText = result
+            let sum = num1 + num2
+            numDisplay.innerText = sum
         break;
 
         case "-":
-            num1 - num2
+            let difference = num1 - num2
+            numDisplay.innerText = difference
         break;
 
         case "*":
-            num1 * num2
+            let product = num1 * num2
+            numDisplay.innerText = product
         break;
 
     }
@@ -69,7 +71,7 @@ function operatorBtnEventListener(event) {
         break;
 
         case "*":
-            console.log("Multiply by the next number")
+            determineCalculation("*")
         break;
 
         case "+":
