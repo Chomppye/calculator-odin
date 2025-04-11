@@ -14,6 +14,22 @@ function clear() {
     lastOperationEquals = false
 }
 
+function createDecimal() {
+    numsInDisplay.push(".")
+    numDisplay.innerText = numsInDisplay.join("")
+}
+
+function inverseNumber() {
+    let num = parseInt(numsInDisplay)
+    if (num > 0) {
+        numsInDisplay.splice(0, 0, "-")
+        numDisplay.innerText = numsInDisplay.join("")
+    } else {
+        numsInDisplay.splice(0, 1)
+        numDisplay.innerText = numsInDisplay.join("")
+    }
+}
+
 function determineCalculation(sign) {
     if (lastOperationEquals) {
         numsToCalculate.push(sign, ...numsInDisplay)
@@ -26,11 +42,11 @@ function determineCalculation(sign) {
 
 function operate(expression = "") {
     const cleaned = expression.replace(/\s+/g, '')
-    const operatorMatch = cleaned.match(/([+\-*/])/)
-    
+    const operatorMatch = cleaned.match(/(?<!^|[+\-*/])[+*/]|(?<!^)-/)
+
     const operator = operatorMatch[0];
     const [num1, num2] = cleaned.split(operator).map(Number)
-
+    
     if (isNaN(num1) || isNaN(num2)) {
         throw new console.error("Invalid numbers in expression");
     }
@@ -83,11 +99,11 @@ function operatorBtnEventListener(event) {
         break;
 
         case "+/-":
-            console.log("change number to the opposite sign")
+            inverseNumber()
         break;
 
         case ".":
-            console.log("create a decimal number")
+            createDecimal()
         break;
 
         case "=":
