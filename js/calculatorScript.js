@@ -4,16 +4,23 @@ const numberBtns = document.querySelectorAll("#num");
 
 let numsInDisplay = [];
 let numsToCalculate = [];
+let lastOperationEquals = false;
 
 function clear() {
     console.log("should clear everything")
     numsInDisplay = []
     numsToCalculate = []
     numDisplay.innerText = ""
+    lastOperationEquals = false
 }
 
 function determineCalculation(sign) {
-    numsToCalculate.push(...numsInDisplay, sign)
+    if (lastOperationEquals) {
+        numsToCalculate.push(sign, ...numsInDisplay)
+    } else {
+        numsToCalculate.push(...numsInDisplay, sign)
+    }
+    //let isThere = numsToCalculate[0] ? numsToCalculate.push(...numsInDisplay, sign) : numsToCalculate.push(sign, ...numsInDisplay)
     numsInDisplay = []
     numDisplay.innerText = ""
 }
@@ -28,23 +35,33 @@ function operate(expression = "") {
     if (isNaN(num1) || isNaN(num2)) {
         throw new console.error("Invalid numbers in expression");
     }
-
+    lastOperationEquals = true
+    numsInDisplay = []
+    numsToCalculate = []
     switch (operator) {
         case "+":
             let sum = num1 + num2
             numDisplay.innerText = sum
+            numsToCalculate[0] = sum
         break;
 
         case "-":
             let difference = num1 - num2
             numDisplay.innerText = difference
+            numsToCalculate[0] = difference
         break;
 
         case "*":
             let product = num1 * num2
             numDisplay.innerText = product
+            numsToCalculate[0] = product
         break;
 
+        case "/":
+            let quotient = num1 / num2
+            numDisplay.innerText = quotient
+            numsToCalculate[0] = quotient
+        break;
     }
 }
 
@@ -66,8 +83,8 @@ function operatorBtnEventListener(event) {
             console.log("change number to the opposite sign")
         break;
 
-        case "%":
-            console.log("find the remainder of the number")
+        case "/":
+            determineCalculation("/")
         break;
 
         case "*":
