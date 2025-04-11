@@ -20,7 +20,6 @@ function determineCalculation(sign) {
     } else {
         numsToCalculate.push(...numsInDisplay, sign)
     }
-    //let isThere = numsToCalculate[0] ? numsToCalculate.push(...numsInDisplay, sign) : numsToCalculate.push(sign, ...numsInDisplay)
     numsInDisplay = []
     numDisplay.innerText = ""
 }
@@ -58,9 +57,13 @@ function operate(expression = "") {
         break;
 
         case "/":
-            let quotient = num1 / num2
-            numDisplay.innerText = quotient
-            numsToCalculate[0] = quotient
+            if (num1 == 0 || num2 == 0) {
+                numDisplay.innerText = "Baka, don't do that"
+            } else {
+                let quotient = num1 / num2
+                numDisplay.innerText = quotient
+                numsToCalculate[0] = quotient
+            }
         break;
     }
 }
@@ -83,22 +86,6 @@ function operatorBtnEventListener(event) {
             console.log("change number to the opposite sign")
         break;
 
-        case "/":
-            determineCalculation("/")
-        break;
-
-        case "*":
-            determineCalculation("*")
-        break;
-
-        case "+":
-            determineCalculation("+")
-        break;
-
-        case "-":
-            determineCalculation("-")
-        break;
-
         case ".":
             console.log("create a decimal number")
         break;
@@ -112,6 +99,9 @@ function operatorBtnEventListener(event) {
         case "backspace":
             console.log("delete the number that was last inputted")
         break;
+
+        default:
+            determineCalculation(operatorPressed)
     }
 }
 
