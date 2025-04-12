@@ -84,7 +84,13 @@ function operate(expression = "") {
     }
 }
 
+function backspace() {
+    numsInDisplay.splice(0, 1)
+    numDisplay.innerText = numsInDisplay.join("")
+}
+
 function numberBtnEventListener(event) {
+    if (numsInDisplay.length > 15) return;
     let numberPressed = parseInt(event.target.innerText)
     numsInDisplay.push(numberPressed)
     numDisplay.innerText = numsInDisplay.join("")
@@ -113,7 +119,7 @@ function operatorBtnEventListener(event) {
         break;
 
         case "backspace":
-            console.log("delete the number that was last inputted")
+            backspace()
         break;
 
         default:
